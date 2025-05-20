@@ -35,6 +35,6 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: dist/estrai_pagine_pdf_*.exe
+        files: dist/PDF-Sifter_*.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
