@@ -4,8 +4,13 @@ import fitz  # PyMuPDF
 from PyPDF2 import PdfWriter, PdfReader
 import os
 
+def get_desktop_path():
+    # Cross-platform: funziona sia su Windows che Linux
+    return os.path.join(os.path.expanduser("~"), "Desktop")
+
 def select_file():
-    filepath = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
+    desktop = get_desktop_path()
+    filepath = filedialog.askopenfilename(title="Seleziona un file PDF", initialdir=desktop, filetypes=[("PDF Files", "*.pdf")])
     if filepath:
         pdf_path.set(filepath)
 
