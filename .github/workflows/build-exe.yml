@@ -1,0 +1,33 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install pyinstaller pymupdf PyPDF2
+
+    - name: Build EXE
+      run: |
+        pyinstaller --onefile --windowed estrai_pagine_pdf.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: estrai_pagine_pdf_exe
+        path: dist/estrai_pagine_pdf.exe
