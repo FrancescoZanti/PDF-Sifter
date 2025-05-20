@@ -30,7 +30,7 @@ jobs:
     - name: Rename EXE with version
       run: |
         $version = "${{ github.ref_name }}"
-        Rename-Item -Path "dist/estrai_pagine_pdf.exe" -NewName "estrai_pagine_pdf_$version.exe"
+        Rename-Item -Path "dist/estrai_pagine_pdf.exe" -NewName "PDF-Sifter_$version.exe"
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
