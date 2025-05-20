@@ -1,9 +1,10 @@
-name: Build EXE
+name: Build and Release EXE
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    tags:
+      - 'v*'  # Trigger solo sui tag come v1.0, v1.1, ecc.
+  workflow_dispatch:  # Possibilità di eseguirlo manualmente
 
 jobs:
   build-windows:
@@ -26,8 +27,14 @@ jobs:
       run: |
         pyinstaller --onefile --windowed estrai_pagine_pdf.py
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - name: Rename EXE with version
+      run: |
+        $version = "${{ github.ref_name }}"
+        Rename-Item -Path "dist/estrai_pagine_pdf.exe" -NewName "estrai_pagine_pdf_$version.exe"
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
       with:
-        name: estrai_pagine_pdf_exe
-        path: dist/estrai_pagine_pdf.exe
+        files: dist/estrai_pagine_pdf_*.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
