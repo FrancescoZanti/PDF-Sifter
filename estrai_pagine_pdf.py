@@ -45,6 +45,11 @@ def extract_matching_pages():
             writer.write(f)
 
         messagebox.showinfo("Successo", f"PDF creato con {len(matching_pages)} pagina/e: {output_path}")
+        ## Apri il file PDF estratto sia da windows che da linux
+        if os.name == 'posix':  # Linux
+            os.system(f'xdg-open "{output_path}"')
+        else:  # Windows
+            os.startfile(output_path)  # Funziona su Windows
     except Exception as e:
         messagebox.showerror("Errore", str(e))
 
