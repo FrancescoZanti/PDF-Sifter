@@ -40,7 +40,7 @@ def extract_matching_pages():
         for page_num in matching_pages:
             writer.add_page(reader.pages[page_num])
 
-        output_path = os.path.splitext(path)[0] + f"_estratto.pdf"
+        output_path = os.path.splitext(path)[0] + f"_" + keyword + f"_estratto.pdf"
         with open(output_path, "wb") as f:
             writer.write(f)
 
