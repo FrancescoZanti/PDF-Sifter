@@ -21,7 +21,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pyinstaller pymupdf PyPDF2
+        pip install pyinstaller pymupdf PyPDF2[full]
 
     - name: Build EXE
       run: |
